@@ -1,0 +1,21 @@
+# Installation files
+__pycache__
+__init__.py
+apps
+demo
+pyrosetta
+rosetta
+setup
+test
+PyMOL*
+self-test.py
+version.json
+
+# Ignore environment variables
+.DS_Store
+
+# Learning files here
+deleteMe/
+BasinHop/
+ARGO/
+ClassicAbinitio/
