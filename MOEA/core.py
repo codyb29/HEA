@@ -66,7 +66,7 @@ class pareto_archive:
         #    self.counts[pose] = self.pareto_count(poses, pose)
 
 
-class ea:
+class EA:
     def __init__(self, cfg):
         setup.run(self, cfg)
         self.PA = pareto_archive(self)

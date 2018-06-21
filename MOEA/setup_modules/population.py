@@ -6,26 +6,34 @@ from random import randint, random
 def population(eaObj, initcfg):
     eaObj.population = []
     eaObj.randomSeed = False
+
     if initcfg['randomseed'] == '1':
         eaObj.randomSeed = True
+
     for i in range(int(initcfg['population'])):
         temporaryPose = Pose()
         temporaryPose.assign(eaObj.initialPose)
+
+        # TODO: Probably has something to do with the converters class. What's going on here?
         if eaObj.cfg['improvement']['representation'] == 'centroid':
             eaObj.fa2cen.apply(temporaryPose)
         if eaObj.randomSeed:
             randomSeed(eaObj, temporaryPose)
         eaObj.population.append(temporaryPose)
+
+    # Looks like a quick fix. Probably delete this and find a better way of doing this.
     if len(eaObj.population) < 1:
         return
+
     eaObj.score0 = create_score_function('score0')
     eaObj.score1 = create_score_function('score1')
     setupfrag = core.fragment.ConstantLengthFragSet(9)
-    setupfrag.read_fragment_file(eaObj.proteinPath+"{0}/aat000_0{1}_05.200_v1_3".format(eaObj.pdbid, 9))
+    setupfrag.read_fragment_file(eaObj.proteinPath + "/aat000_0{0}_05.200_v1_3".format(9))
     setupmm = MoveMap()
     setupmm.set_bb(True)
     setupmm.set_chi(True)
     eaObj.setupMover = protocols.simple_moves.ClassicFragmentMover(setupfrag, setupmm)
+
     for pose in eaObj.population:
         pose.assign(randomizeConformation(eaObj, pose))
 
@@ -63,12 +71,12 @@ def randomSeed(eaObj, ipose):
     pose = Pose()
     pose.assign(ipose)
     clash = create_score_function('score3')
-    while fabs(rg_fxn(pose)-sqrt(eaObj.seqlen)) > sqrt(eaObj.seqlen)*.6 and clash(pose) >= 150:
+    while (fabs(rg_fxn(pose) - sqrt(eaObj.seqlen)) > (sqrt(eaObj.seqlen) * .6)) and (clash(pose) >= 150):
         pose.assign(ipose)
         randomizeBB(eaObj, pose)
     ipose.assign(pose)
 
 def randomizeBB(eaObj, pose):
-    for i in range(1,eaObj.seqlen+1):
-        pose.set_phi(i,randint(-180,180))
-        pose.set_psi(i,randint(-180,180))
+    for i in range(1, eaObj.seqlen+1):
+        pose.set_phi(i, randint(-180, 180))
+        pose.set_psi(i, randint(-180, 180))
