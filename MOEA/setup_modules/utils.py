@@ -5,7 +5,7 @@ def seq_from_fasta(filepath):
         parsedLine = line.strip()
         if parsedLine.startswith('>'):
             continue
-        seq+=parsedLine
+        seq += parsedLine
     return seq
 
 trueVals = [1, "true", "True", "T" , "t", "y", "Y", "yes", "Yes"]
