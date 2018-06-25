@@ -13,7 +13,7 @@ def bh(eaObj, initcfg):
     # TODO: VERIFY THESE ARE CORRECT
     if initcfg['initState'] == 'extended':
         eaObj.sequence = seq_from_fasta(
-            eaObj.proteinPath + "{0}.fasta".format(eaObj.pdbid))
+            eaObj.proteinPath + "{0}/{0}.fasta".format(eaObj.pdbid))
         eaObj.initialPose = pose_from_sequence(eaObj.sequence)
     elif initcfg['initState'] == 'pdb':
         eaObj.initialPose = pose_from_pdb(eaObj.proteinPath + "{0}/{0}.pdb")
