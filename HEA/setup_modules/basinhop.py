@@ -10,7 +10,8 @@ def bh(eaObj, initcfg):
     eaObj.proteinPath = initcfg['path']
 
     # 3 different initialization states
-    # TODO: VERIFY THESE ARE CORRECT
+    # The protein can be instantiated through 3 different file types:
+    # .fasta, .pdb, or a sequence file.
     if initcfg['initState'] == 'extended':
         eaObj.sequence = seq_from_fasta(
             eaObj.proteinPath + "{0}/{0}.fasta".format(eaObj.pdbid))
