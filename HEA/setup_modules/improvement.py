@@ -3,7 +3,10 @@ from rosetta import *
 from .utils import getTrueValues
 
 def improvement(eaObj, impcfg):
+    # Identify the scoring protocol
+    
     eaObj.relaxtype = impcfg['relaxtype']
+    '''
     if eaObj.relaxtype == 'fast':
         eaObj.relax = protocols.relax.FastRelax()
     elif eaObj.relaxtype == 'classic':
@@ -14,11 +17,10 @@ def improvement(eaObj, impcfg):
         pass
     else:
         raise Exception("Unrecognized relaxtype!")
-
-    eaObj.dE = float(impcfg['dE'])
+'''
     eaObj.impScoreFxn = create_score_function(impcfg['scorefxn'])
-    if not eaObj.relaxtype == 'local':
-        eaObj.relax.set_scorefxn(eaObj.impScoreFxn)
+    #if not eaObj.relaxtype == 'local':
+    #    eaObj.relax.set_scorefxn(eaObj.impScoreFxn)
 
     eaObj.impFragLength = int(impcfg['fragLength'])
     eaObj.impFragments = core.fragment.ConstantLengthFragSet(

@@ -11,25 +11,33 @@ def run(eaObj, cfg):
     initConfig = eaObj.cfg['init']
     setup.bh(eaObj, initConfig)
     # Object references created:
-    # eaObj.genN, eaObj.pdbid, eaObj.proteinPath, eaObj.sequence, eaObj.initialPose
+    # eaObj.genN, eaObj.pdbid, eaObj.proteinPath, eaObj.sequence, eaObj.initialPose, eaObj.seqlen
 
     # Convert the Protein of interest into an easier form of analysis.
     setup.converter(eaObj)
     # Object references created:
     # eaObj.fa2cen, eaObj.cen2fa
 
-    # Generate population based on specified parameters
-    setup.GeneratePopulation(eaObj, initConfig)
-    # TODO: What the hell is going on here...
-    setup.evaluation(eaObj, initConfig)
-
     # setting up the variation function
     varConfig = eaObj.cfg['variation']
     setup.variation(eaObj, varConfig)
+    # Object references created:
+    # eaObj.varFragLength, eaObj.varFragments, eaObj.movemap, eaObj.varMover
 
-    # setting up the improvement
+    # Generate population based on specified parameters
+    setup.GeneratePopulation(eaObj, initConfig)
+    # Object references created:
+    # eaObj.population
+    # TODO: Something needs to be done here.
+    setup.evaluation(eaObj, initConfig)
+    # Object references created:
+    # eaObj.evalnum, eaObj.evalbudget, eaObj.knownNative, eaObj.other
+
+    # Setting up the environment for local search
     impConfig = eaObj.cfg['improvement']
     setup.improvement(eaObj, impConfig)
+    # Object references created:
+    # 
 
     # misc variables
     setup.misc(eaObj)
