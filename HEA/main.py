@@ -17,7 +17,7 @@ INIT_FILE = sys.argv[protein]
 
 protein = EA (INIT_FILE)
 # path/to/file/filename
-FILENAME = './../results/' + protein.pdbid + '-' + ARRAY_ID + '-MOEA.txt'
+FILENAME = './../results/' + protein.pdbid + '-' + ARRAY_ID + '-HEA.txt'
 protein.run()
 
 with open (FILENAME, 'a') as fl :
