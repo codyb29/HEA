@@ -1,2 +1,2 @@
-# MOEA
-An implementation of a Multi-Objective Evolutionary search Algorithm for GMU's Computational Biology Labratory.
+# HEA
+An implementation of a Hybrid Evolutionary search Algorithm for GMU's Computational Biology Labratory.
