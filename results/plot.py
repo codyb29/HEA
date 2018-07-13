@@ -5,7 +5,7 @@ import statistics
 
 x = []
 y = []
-name = "1bq9HEA.txt"
+name = "1ail-0-HEA.txt"
 i=0
 with open(name, "r") as f:
     for line in f:
@@ -36,3 +36,4 @@ print("\n")
 
 plt.legend(loc='best')
 plt.show()
+exit(1)

@@ -1,7 +1,7 @@
 from pyrosetta import *
 from rosetta import *
 import setup_modules as setup
-from math import fabs, sqrt, exp
+from math import fabs, sqrt, exp, inf
 from random import randint, random
 
 
@@ -15,10 +15,12 @@ def GeneratePopulation(eaObj, initcfg):
     while (size < maxPopulation):
         # new protein to be added to population that is subject to a randomized conformation
         newPose = Pose()
-        newPose.assign(eaObj.initialPose) 
-        eaObj.fa2cen.apply(newPose) # Will convert the protein into a centroid.
-        for i in range(0, eaObj.seqlen) :
-            eaObj.varMover.apply(newPose) # Molecular fragment replacement
+        newPose.assign(eaObj.initialPose)
+        # Will convert the protein into a centroid.
+        eaObj.fa2cen.apply(newPose)
+        for i in range(0, eaObj.seqlen):
+            eaObj.varMover.apply(newPose)  # Molecular fragment replacement
         # Add the newly modified protein to the total population
-        eaObj.population.append(newPose)
+        eaObj.population.append([newPose, inf])
         size += 1
+

@@ -1,7 +1,10 @@
 import improvement_modules as improvement
+"""
+Although simple, this file was created for easier expansion for other research
+routes. In the event of other possible improvement techniques, a file like
+this would be beneficial to keep things modular.
+"""
 
-def run(eaObj, pose):
-    if eaObj.relaxtype == 'local':
-        improvement.local(eaObj, pose)
-    elif 'relax' in eaObj.relaxtype:
-        improvement.relax(eaObj, pose)
+
+def localSearch(eaObj, pose):
+    return improvement.local(eaObj, pose)

@@ -28,6 +28,7 @@ def run(eaObj, cfg):
     setup.GeneratePopulation(eaObj, initConfig)
     # Object references created:
     # eaObj.population
+
     # TODO: Something needs to be done here.
     setup.evaluation(eaObj, initConfig)
     # Object references created:
@@ -37,7 +38,9 @@ def run(eaObj, cfg):
     impConfig = eaObj.cfg['improvement']
     setup.improvement(eaObj, impConfig)
     # Object references created:
-    # 
+    # eaObj.relaxtype, eaObj.impScoreFxn
 
     # misc variables
     setup.misc(eaObj)
+    # Object references created:
+    # eaObj.oSet, eaObj.minScore, eaObj.minState

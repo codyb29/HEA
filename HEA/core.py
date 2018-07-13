@@ -1,7 +1,7 @@
 from rosetta import *
 from pyrosetta import *
 from random import randint, random
-from math import exp, floor, sqrt, fabs
+from math import exp, floor, sqrt, fabs, inf
 import itertools
 import setup
 import variation
@@ -9,9 +9,6 @@ import improvement
 import selection
 
 init()
-s4 = create_score_function("score4_smooth")
-
-
 class pareto_archive:
     # keeps track of all pareto ranks and counts for population
     def __init__(self, eaObj):
@@ -85,19 +82,27 @@ class EA:
         self.evalnum = 0
 
     def iterate(self):
-        poses = selection.select(self)
-        tposes = []
+        # Possible expansion of MOEA. Hence, why this operation is more complicated than it needs to be.
+        # Follows the order of [pose, score, pose, score, ...]
+        prevPop = selection.select(self)
+        nextPop = []
 
-        for pose in poses:
+        # Focus on the poses
+        for i in range(len(prevPop)):
             tempPose = Pose()
-            tempPose.assign(pose)  # copy pose
-            variation.perturb(self, tempPose) # Apply fragment replacement
-            improvement.run(self, tempPose) # Local search for possible improvement
-            tposes.append(tempPose) # add to the new population
+            tempPose.assign(prevPop[i][0])  # copy pose
 
-        # Score generated conformations
-        for pose in tposes:
+            # TODO: Subject to crossover
+
+            variation.perturb(self, tempPose)  # Apply fragment replacement
+            # Local search for possible improvement
+            score = improvement.localSearch(self, tempPose)
+            nextPop.append([tempPose, score])
+
+        # Get RMSD scores from our newly created population
+        for i in range(len(nextPop)):
             self.rmsdarchive.append(
-                core.scoring.CA_rmsd(pose, self.knownNative))
+                core.scoring.CA_rmsd(nextPop[i][0], self.knownNative))
 
-        self.population = selection.truncate(self, poses, tposes)
+        # Elitest-based Truncation Selection
+        self.population = selection.truncate(self, prevPop, nextPop)
