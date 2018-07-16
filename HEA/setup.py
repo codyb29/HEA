@@ -24,6 +24,10 @@ def run(eaObj, cfg):
     # Object references created:
     # eaObj.varFragLength, eaObj.varFragments, eaObj.movemap, eaObj.varMover
 
+    #setting up the crossover function
+    coConfig = eaObj.cfg['crossover']
+    setup.crossover(eaObj, coConfig)
+
     # Generate population based on specified parameters
     setup.GeneratePopulation(eaObj, initConfig)
     # Object references created:

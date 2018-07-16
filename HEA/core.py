@@ -7,6 +7,7 @@ import setup
 import variation
 import improvement
 import selection
+import crossover
 
 init()
 s4 = create_score_function("score4_smooth")
@@ -88,9 +89,12 @@ class EA:
         poses = selection.select(self)
         tposes = []
 
+
         for pose in poses:
+            # For each parent in the population: tempPose
             tempPose = Pose()
             tempPose.assign(pose)  # copy pose
+            tempPose = crossover.typeofcrossover(self, tempPose) #Perform a crossover
             variation.perturb(self, tempPose) # Apply fragment replacement
             improvement.run(self, tempPose) # Local search for possible improvement
             tposes.append(tempPose) # add to the new population
