@@ -90,14 +90,15 @@ class EA:
         # Focus on the poses
         for i in range(len(prevPop)):
             tempPose = Pose()
+            # TODO: Potentially clean this up. Waiting to see how crossover is implemented.
             tempPose.assign(prevPop[i][0])  # copy pose
-
+            posePair = [tempPose, prevPop[i][1]]
             # TODO: Subject to crossover
 
-            variation.perturb(self, tempPose)  # Apply fragment replacement
+            variation.perturb(self, posePair)  # Apply fragment replacement
             # Local search for possible improvement
-            score = improvement.localSearch(self, tempPose)
-            nextPop.append([tempPose, score])
+            improvement.localSearch(self, posePair)
+            nextPop.append(posePair)
 
         # Get RMSD scores from our newly created population
         for i in range(len(nextPop)):
