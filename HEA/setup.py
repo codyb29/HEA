@@ -18,8 +18,7 @@ def run(eaObj, cfg):
     # Object references created:
     # eaObj.fa2cen, eaObj.cen2fa
 
-<<<<<<< HEAD
-    # setting up the variation function
+   # setting up the variation function
     varConfig = eaObj.cfg['variation']
     setup.variation(eaObj, varConfig)
     # Object references created:
@@ -34,8 +33,6 @@ def run(eaObj, cfg):
     # Object references created:
     # eaObj.population
     # TODO: Something needs to be done here.
-=======
->>>>>>> origin/refine
     setup.evaluation(eaObj, initConfig)
     # Object references created:
     # eaObj.evalnum, eaObj.evalbudget, eaObj.knownNative, eaObj.other
