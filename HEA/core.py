@@ -7,6 +7,7 @@ import setup
 import variation
 import improvement
 import selection
+import crossover
 
 init()
 class pareto_archive:
@@ -93,7 +94,9 @@ class EA:
             # TODO: Potentially clean this up. Waiting to see how crossover is implemented.
             tempPose.assign(prevPop[i][0])  # copy pose
             posePair = [tempPose, prevPop[i][1]]
-            # TODO: Subject to crossover
+            # TODO: Fix child population before crossover
+            # TODO: Ask the professor whether or not crossover generates an additional protein conformation to the population
+            #tempPose = crossover.typeofcrossover(self, tempPose) #Perform a crossover
 
             variation.perturb(self, posePair)  # Apply fragment replacement
             # Local search for possible improvement

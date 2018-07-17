@@ -18,6 +18,21 @@ def run(eaObj, cfg):
     # Object references created:
     # eaObj.fa2cen, eaObj.cen2fa
 
+   # setting up the variation function
+    varConfig = eaObj.cfg['variation']
+    setup.variation(eaObj, varConfig)
+    # Object references created:
+    # eaObj.varFragLength, eaObj.varFragments, eaObj.movemap, eaObj.varMover
+
+    #setting up the crossover function
+    coConfig = eaObj.cfg['crossover']
+    setup.crossover(eaObj, coConfig)
+
+    # Generate population based on specified parameters
+    setup.GeneratePopulation(eaObj, initConfig)
+    # Object references created:
+    # eaObj.population
+    # TODO: Something needs to be done here.
     setup.evaluation(eaObj, initConfig)
     # Object references created:
     # eaObj.evalnum, eaObj.evalbudget, eaObj.knownNative, eaObj.other
