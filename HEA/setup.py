@@ -18,6 +18,7 @@ def run(eaObj, cfg):
     # Object references created:
     # eaObj.fa2cen, eaObj.cen2fa
 
+<<<<<<< HEAD
     # setting up the variation function
     varConfig = eaObj.cfg['variation']
     setup.variation(eaObj, varConfig)
@@ -33,6 +34,8 @@ def run(eaObj, cfg):
     # Object references created:
     # eaObj.population
     # TODO: Something needs to be done here.
+=======
+>>>>>>> origin/refine
     setup.evaluation(eaObj, initConfig)
     # Object references created:
     # eaObj.evalnum, eaObj.evalbudget, eaObj.knownNative, eaObj.other
@@ -41,7 +44,20 @@ def run(eaObj, cfg):
     impConfig = eaObj.cfg['improvement']
     setup.improvement(eaObj, impConfig)
     # Object references created:
-    # 
+    # eaObj.relaxtype, eaObj.impScoreFxn
+
+    # setting up the variation function
+    varConfig = eaObj.cfg['variation']
+    setup.variation(eaObj, varConfig)
+    # Object references created:
+    # eaObj.varFragLength, eaObj.varFragments, eaObj.movemap, eaObj.varMover
 
     # misc variables
     setup.misc(eaObj)
+    # Object references created:
+    # eaObj.oSet, eaObj.minScore, eaObj.minState
+
+    # Generate population based on specified parameters
+    setup.GeneratePopulation(eaObj, initConfig)
+    # Object references created:
+    # eaObj.population

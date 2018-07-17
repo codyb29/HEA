@@ -15,10 +15,12 @@ def GeneratePopulation(eaObj, initcfg):
     while (size < maxPopulation):
         # new protein to be added to population that is subject to a randomized conformation
         newPose = Pose()
-        newPose.assign(eaObj.initialPose) 
-        eaObj.fa2cen.apply(newPose) # Will convert the protein into a centroid.
-        for i in range(0, eaObj.seqlen) :
-            eaObj.varMover.apply(newPose) # Molecular fragment replacement
+        newPose.assign(eaObj.initialPose)
+        # Will convert the protein into a centroid.
+        eaObj.fa2cen.apply(newPose)
+        eaObj.varMover.apply(newPose)  # Molecular fragment replacement
         # Add the newly modified protein to the total population
-        eaObj.population.append(newPose)
+        eaObj.population.append([newPose, eaObj.impScoreFxn(newPose)])
+        eaObj.evalnum += 1
         size += 1
+

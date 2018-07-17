@@ -1,6 +1,6 @@
 # Installation files
 __pycache__
-__init__.py
+./__init__.py
 apps
 demo
 pyrosetta

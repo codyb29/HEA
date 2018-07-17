@@ -49,7 +49,6 @@ for i in range(1):
             f.write(str(score)+"\n")
 """
 
-# I believe this portion of the code is written for HEA
 # f.write(str(min(main.energyarchive))+"\n")
 # for pose in main.population:
 #    s = str(core.scoring.CA_rmsd(pose,main.knownNative))+" "+str(score4(pose))+"\n"
