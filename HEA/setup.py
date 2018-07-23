@@ -29,7 +29,7 @@ def run(eaObj, cfg):
     setup.crossover(eaObj, coConfig)
 
     # Generate population based on specified parameters
-    setup.GeneratePopulation(eaObj, initConfig)
+    #setup.GeneratePopulation(eaObj, initConfig)
     # Object references created:
     # eaObj.population
     # TODO: Something needs to be done here.

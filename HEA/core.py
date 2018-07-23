@@ -96,7 +96,7 @@ class EA:
             posePair = [tempPose, prevPop[i][1]]
             # TODO: Fix child population before crossover
             # TODO: Ask the professor whether or not crossover generates an additional protein conformation to the population
-            #tempPose = crossover.typeofcrossover(self, tempPose) #Perform a crossover
+            tempPose = crossover.typeofcrossover(self, tempPose) #Perform a crossover
 
             variation.perturb(self, posePair)  # Apply fragment replacement
             # Local search for possible improvement
