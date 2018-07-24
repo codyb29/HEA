@@ -1,9 +1,9 @@
-from pyrosetta import *
-from rosetta import *
+from core import Pose
+
 
 def misc(eaObj):
-    #offspring set
+    # offspring set
     eaObj.oSet = set()
-    #mintracker
+    # mintracker
     eaObj.minScore = 1e9
     eaObj.minState = Pose()

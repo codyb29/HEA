@@ -1,5 +1,4 @@
 import variation_modules as variation
-from math import inf
 
 def perturb(eaObj, posePair):
     if eaObj.cfg['variation']['fragReplacement'] == '1':

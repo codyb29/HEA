@@ -24,11 +24,13 @@ def run(eaObj, cfg):
     # Object references created:
     # eaObj.varFragLength, eaObj.varFragments, eaObj.movemap, eaObj.varMover
 
-    #setting up the crossover function
+    # setting up the crossover function
     coConfig = eaObj.cfg['crossover']
     setup.crossover(eaObj, coConfig)
+    # Object references created:
+    # eaObj.cotype
 
-    # TODO: Something needs to be done here.
+    # Establish variables associated with evaluating the protein
     setup.evaluation(eaObj, initConfig)
     # Object references created:
     # eaObj.evalnum, eaObj.evalbudget, eaObj.knownNative, eaObj.other

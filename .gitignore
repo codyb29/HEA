@@ -15,6 +15,10 @@ version.json
 .DS_Store
 .vscode/
 
+# Ignore protein files and what not
+HEA/initialization_files/*.ini
+results/*.txt
+
 # Learning files here
 deleteMe/
 BasinHop/

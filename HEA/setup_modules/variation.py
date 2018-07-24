@@ -1,8 +1,14 @@
-from pyrosetta import *
-from rosetta import *
+# from pyrosetta import *
+# from rosetta import *
+from rosetta import core, protocols
+from pyrosetta import MoveMap
 from .utils import getTrueValues
 
-# Setting up the Molecular Fragment Replacement.
+"""
+Setting up the Molecular Fragment Replacement.
+"""
+
+
 def variation(eaObj, varcfg):
     # setting the constant length of fragments being replaced
     eaObj.varFragLength = int(varcfg['fragLength'])

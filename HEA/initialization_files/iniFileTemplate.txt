@@ -1,0 +1,50 @@
+// This file simply details how to create ini files that work with this program.
+// Do not include lines with the "//" preceeding a sentence.
+
+// should include an init tag which specifies basic details about the protein
+[init]
+nGen = <number>
+protein = <protein name>
+initState = <ex. extended>
+path = path/to/your/protein/files/
+population = <size of population>
+evalbudget = <how many times you would like to evaluate in total>
+randomseed = <random seed to initiate the randomization>
+
+// Establish crossover information
+[crossover]
+cotype = <number that corresponds to the type of crossover wanted>
+
+// Establish the type of evolutionary algorithm. Note, only HEA is currently supported
+[selection]
+type = <type of Evolutionary algorithm>
+
+
+// Variation information
+[variation]
+chiAngle = <number>
+bbAngle = <number>
+fragReplacement = <number>
+fragLength = 3 // Only number currently supported
+
+[improvement]
+scorefxn = score3 // HEA uses score3. Only use this until more evolutionary algorithms are supported
+representation = centroid // Use centroid for fast calculations.
+relaxtype = local // Currently only local is supported.
+dE = 0 // Potentially not necessary.
+fragLength = 3 // Currently only 3 is supported.
+bbAngle = <number>
+chiAngle = <number>
+
+// For when MOEA is to be expanded, this tag will become necessary. 
+// for now, just copy whats here since I'm too lazy to figure out what this part is for at the moment.
+[stages]
+s1scorefxn=score0
+s2scorefxn=score1
+s3scorefxn=score2
+s4scorefxn=score3
+s1weight=
+s2weight=
+s3weight=
+s4weight=1.0
+skip=123

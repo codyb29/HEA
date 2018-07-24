@@ -1,8 +1,5 @@
-from pyrosetta import *
-from rosetta import *
+from core import Pose
 import setup_modules as setup
-from math import fabs, sqrt, exp
-from random import randint, random
 
 
 # Will be used to generate the initial randomized population
@@ -23,4 +20,3 @@ def GeneratePopulation(eaObj, initcfg):
         eaObj.population.append([newPose, eaObj.impScoreFxn(newPose)])
         eaObj.evalnum += 1
         size += 1
-

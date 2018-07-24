@@ -1,6 +1,5 @@
 from .utils import seq_from_fasta
-from pyrosetta import *
-from rosetta import *
+from pyrosetta import pose_from_sequence, pose_from_pdb
 
 
 def bh(eaObj, initcfg):
