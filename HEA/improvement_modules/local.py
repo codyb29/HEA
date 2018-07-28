@@ -2,7 +2,6 @@ from core import Pose
 
 
 def local(eaObj, posePair):
-    # TODO: This can be improved. Data is already scored and stored. Just need to import array somehow.
     # Initial score of the incoming protein conformation
     curScore = posePair[1]
     discardnum = 0  # Number of failures to improve the score

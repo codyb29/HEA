@@ -1,5 +1,5 @@
 # Project Configuration
-## MOEA
+## HEA
 The baseline of the whole project. This is where the algorithm is implemented to gather information on various protein configurations.
 
 **improvement_modules:** Will evaluate the amino acid chain that make up the protein and attempt to improve the rosetta score entailing a given protein.
@@ -26,8 +26,11 @@ The baseline of the whole project. This is where the algorithm is implemented to
 
 **variation.py:** Similar to the driving purpose of the improvement.py except implements the variation_module.
 
-## MOEA HEA Results
-Text files containing the results of the code. If there is 1 number per line, it is RMSD. If there are multiple, the numbers are RMSD and then score3 energy.
+## proteins
+Essential protein files to run the program. These can include pdb files, fasta files, or fragment files.
+
+## results
+Title is pretty self explanatory. Contains the evaluated results derived from the program. Also contains a mini-program to plot the data.
 
 ## Scatterplot
-Simple python script that uses matplotlib to graph the results of the MOEA.
+Simple python script that uses matplotlib to graph the results of the MOEA. Kepts as a quick reference to Kevin's results.
