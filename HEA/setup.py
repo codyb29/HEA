@@ -1,4 +1,6 @@
 import setup_modules as setup
+# Lists all the attributes associated with the HEA algorithm below its respective
+# function call. This should hopefully make things easier to keep track of them.
 
 
 def run(eaObj, cfg):
@@ -40,12 +42,6 @@ def run(eaObj, cfg):
     setup.improvement(eaObj, impConfig)
     # Object references created:
     # eaObj.relaxtype, eaObj.impScoreFxn
-
-    # setting up the variation function
-    varConfig = eaObj.cfg['variation']
-    setup.variation(eaObj, varConfig)
-    # Object references created:
-    # eaObj.varFragLength, eaObj.varFragments, eaObj.movemap, eaObj.varMover
 
     # misc variables
     setup.misc(eaObj)

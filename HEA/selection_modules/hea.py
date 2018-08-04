@@ -8,7 +8,9 @@ def truncate(eaObj, prevPop, nextPop):
     prevPop = sorted(prevPop, key=lambda conformation: conformation[1])
     nextPop = sorted(nextPop, key=lambda conformation: conformation[1])
 
-    maxPopulation = len(prevPop)
-    prevElite = int(maxPopulation * 0.25)
-    nextElite = maxPopulation - prevElite
-    return prevPop[ : prevElite] + nextPop[ : nextElite]
+    prevElite = int(len(prevPop) * 0.25) # Select the top 25% of prevPop
+    nextPop = nextPop + prevPop[ : prevElite] # Concatenate prevPop with new Pop
+    # Sort one more time for both populations to compete with each other.
+    nextPop = sorted(nextPop, key=lambda conformation: conformation[1])
+    # return the top 100 configurations for the next population
+    return nextPop[ : 100]

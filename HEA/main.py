@@ -1,5 +1,5 @@
 import sys
-sys.path.append('..')  # input path to installation files here
+sys.path.append('/home/cbarre15/PyRosetta4.Release.python36.linux.release-186')  # input path to installation files here
 from pyrosetta import *
 from core import EA
 
@@ -17,7 +17,7 @@ INIT_FILE = sys.argv[protein]
 init() # Initialize the pyrosetta library
 protein = EA (INIT_FILE) # Initialize Evolutionaryv Algorithm with given protein file
 # path/to/file/FILENAME
-FILENAME = './../results/' + protein.pdbid + '-' + ARRAY_ID + '-HEA.txt'
+FILENAME = '/scratch/cbarre15/' + protein.pdbid + '-' + ARRAY_ID + '-HEA.txt'
 protein.run()
 
 with open (FILENAME, 'a') as fl :

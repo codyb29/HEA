@@ -20,6 +20,7 @@ def local(eaObj, posePair):
             curScore = tempScore
             # Set our improved protein conformation as our new subject
             posePair[0].assign(tempPose)
+            discardnum = 0 # reset since we're only concerned with consecutive	
         else:
             # Otherwise, we have failed to improve the score
             discardnum += 1
