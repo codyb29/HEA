@@ -19,6 +19,7 @@ def onePointcrossover(eaObj, inParent):
 
     # Pick a random point in the sequence of the strand of amino acids to crossover
     crossOverPoint = randint(1, eaObj.seqlen)
+    
 
     # Create a new pose to be crossover'd by the two parents
     child = Pose()
@@ -36,7 +37,7 @@ def onePointcrossover(eaObj, inParent):
         Pose.replace_residue(
             child, residue, Pose.residue(randParent, residue), True)
 
-    return child
+    inParent = child
 
 
 """
@@ -75,7 +76,7 @@ def twoPointcrossover(eaObj, inParent):
     for i in range(1, crossOverPoint2):
         Pose.replace_residue(child, i, Pose.residue(inParent,i), True)'''
 
-    return child
+    inParent = child
 
 
 """

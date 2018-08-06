@@ -5,7 +5,7 @@ import statistics
 
 x = []
 y = []
-name = "1ail-0-HEA.txt"
+name = "1bq9-0-HEA.txt"
 i=0
 with open(name, "r") as f:
     for line in f:

@@ -24,6 +24,7 @@ class EA:
         # Follows the order of [pose, score, pose, score, ...]
         prevPop = selection.select(self)
         nextPop = []
+        print ('Starts Here: ', [x[1] for x in prevPop])
 
         # Focus on the poses
         for i in range(len(prevPop)):
@@ -34,8 +35,7 @@ class EA:
             # Easy insertion of our designated format.
             posePair = [tempPose, prevPop[i][1]]
 
-            tempPose = crossover.typeofcrossover(
-                self, tempPose)  # Perform a crossover
+            crossover.typeofcrossover(self, tempPose)  # Perform a crossover
             variation.perturb(self, posePair)  # Apply fragment replacement
             # Local search for possible improvement
             improvement.localSearch(self, posePair)
@@ -44,8 +44,10 @@ class EA:
 
         # Get RMSD scores from our newly created population. Essentially, our evaluation phase.
         for i in range(len(nextPop)):
+            # TODO: Having problems with superimpose.
             self.rmsdarchive.append(
                 core.scoring.CA_rmsd(nextPop[i][0], self.knownNative))
+        
 
         # Elitest-based Truncation Selection
         self.population = selection.truncate(self, prevPop, nextPop)

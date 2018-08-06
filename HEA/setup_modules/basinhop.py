@@ -16,7 +16,7 @@ def bh(eaObj, initcfg):
             eaObj.proteinPath + "{0}/{0}.fasta".format(eaObj.pdbid))
         eaObj.initialPose = pose_from_sequence(eaObj.sequence)
     elif initcfg['initState'] == 'pdb':
-        eaObj.initialPose = pose_from_pdb(eaObj.proteinPath + "{0}/{0}.pdb")
+        eaObj.initialPose = pose_from_pdb(eaObj.proteinPath + "{0}/{0}.pdb".format(eaObj.pdbid))
     elif initcfg['initState'] == 'sequence':
         eaObj.sequence = initcfg['sequence']
         eaObj.initialPose = pose_from_sequence(eaObj.sequence)
