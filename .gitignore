@@ -10,6 +10,8 @@ test
 PyMOL*
 self-test.py
 version.json
+proteins/*/*.200_v1_3
+
 
 # Ignore environment variables
 .DS_Store
@@ -18,6 +20,7 @@ version.json
 # Ignore protein files and what not
 HEA/initialization_files/*.ini
 results/*.txt
+
 
 # Learning files here
 deleteMe/
