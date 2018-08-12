@@ -20,6 +20,14 @@ protein = EA (INIT_FILE) # Initialize Evolutionaryv Algorithm with given protein
 FILENAME = './../results/' + protein.pdbid + '-' + ARRAY_ID + '-HEA.txt'
 protein.run()
 
-with open (FILENAME, 'a') as fl :
+with open (FILENAME, 'w') as fl :
     for score in protein.rmsdarchive :
         fl.write (str(score) + '\n')
+
+# Print findings
+print('****************************************')
+print(protein.pdbid, 'results')
+print('n: ', str(min(protein.seqLen, protein.knownNativeLen)))
+print('lowest Rosetta Score4 Energy: ', min([scores[1] for scores in protein.population]))
+print('min C-alpha RMSD score: ', min(protein.rmsdarchive))
+print('****************************************')

@@ -23,4 +23,4 @@ def bh(eaObj, initcfg):
     else:
         raise Exception("Unrecognized initState!")
 
-    eaObj.seqlen = len(eaObj.initialPose.sequence())
+    eaObj.seqLen = eaObj.initialPose.size()

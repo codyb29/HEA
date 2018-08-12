@@ -1,10 +1,12 @@
-from pyrosetta import *
-from rosetta import core
+from rosetta.core.scoring import calpha_superimpose_pose, CA_rmsd
+from pyrosetta import Pose
 import setup
 import variation
 import improvement
 import selection
 import crossover
+
+
 
 
 class EA:
@@ -15,39 +17,33 @@ class EA:
     def run(self):
         self.evalnum = 0
         while (self.evalnum < self.evalbudget):
-            print(self.evalnum)
+            print("Evaluation Status: " + str(int((self.evalnum / self.evalbudget) * 100)) + "%")
             self.iterate()
-        self.evalnum = 0 # TODO: Potentially delete. No idea why the reset is needed if program finishes.
 
     def iterate(self):
         # Possible expansion of MOEA. Hence, why this operation is more complicated than it needs to be.
-        # Follows the order of [pose, score, pose, score, ...]
+        # Follows the order of [[pose, score], [pose, score], ...]
         prevPop = selection.select(self)
         nextPop = []
-        print ('Starts Here: ', [x[1] for x in prevPop])
 
         # Focus on the poses
         for i in range(len(prevPop)):
             # Setup variables for creating the new protein configuration to be added to the population.
             tempPose = Pose()
-            # copy pose from previous generation.
-            tempPose.assign(prevPop[i][0])
-            # Easy insertion of our designated format.
-            posePair = [tempPose, prevPop[i][1]]
+            tempPose.assign(prevPop[i][0]) # copy pose from previous generation.
+            posePair = [tempPose, prevPop[i][1]]  # [pose, score]
 
+            # Begin protein manipulation
             crossover.typeofcrossover(self, tempPose)  # Perform a crossover
             variation.perturb(self, posePair)  # Apply fragment replacement
-            # Local search for possible improvement
-            improvement.localSearch(self, posePair)
-            # Add manipulated child protein to the new population
+            improvement.localSearch(self, posePair) # Local search for possible improvement
             nextPop.append(posePair)
 
-        # Get RMSD scores from our newly created population. Essentially, our evaluation phase.
         for i in range(len(nextPop)):
-            # TODO: Having problems with superimpose.
-            self.rmsdarchive.append(
-                core.scoring.CA_rmsd(nextPop[i][0], self.knownNative))
-        
+            # align the poses for a better score.
+            calpha_superimpose_pose(nextPop[i][0], self.knownNative)
+            # Evaluate and store the rmsd score between the 2 poses.
+            self.rmsdarchive.append(CA_rmsd(nextPop[i][0], self.knownNative))
 
         # Elitest-based Truncation Selection
         self.population = selection.truncate(self, prevPop, nextPop)

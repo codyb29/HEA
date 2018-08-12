@@ -7,7 +7,7 @@ def local(eaObj, posePair):
     discardnum = 0  # Number of failures to improve the score
     tempPose = Pose()
 
-    while discardnum < eaObj.seqlen:
+    while discardnum < eaObj.seqLen:
         # Create a duplicate protein that's subject to change
         tempPose.assign(posePair[0])
         eaObj.varMover.apply(tempPose)  # Molecular Fragment Replacement
