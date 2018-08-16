@@ -1,6 +1,4 @@
 from random import randint
-# TODO: find a more specific path for the "compare_atom_coordinates"
-# Below is just a quick fix to get things working.
 from pyrosetta import Pose
 from rosetta import core
 import random
@@ -10,11 +8,11 @@ def onePointcrossover(eaObj, inParent):
     # Get random number for crossoverpoint.
     randParentLocation = randint(1, len(eaObj.population) - 1)
     # Get random parent from population, ensure that we didn't get the same one.
-    randParent = eaObj.population[randParentLocation][0]
+    randParent = eaObj.population[randParentLocation]
 
-    while (core.pose.compare_atom_coordinates(randParent, inParent)):
+    while (randParent == inParent):
         randParentLocation = randint(1, len(eaObj.population) - 1)
-        randParent = eaObj.population[randParentLocation][0]
+        randParent = eaObj.population[randParentLocation]
 
     # Pick a random point in the sequence of the strand of amino acids to crossover
     crossOverPoint = randint(1, eaObj.seqLen)
@@ -22,7 +20,7 @@ def onePointcrossover(eaObj, inParent):
 
     # Create a new pose to be crossover'd by the two parents
     child = Pose()
-    child.assign(inParent)
+    child.assign(inParent.pose)
 
     """
     Based on the API i've read through, I don't see any methods that could make this easy so here's a solution:
@@ -34,9 +32,9 @@ def onePointcrossover(eaObj, inParent):
     """
     for residue in range(1, crossOverPoint):
         Pose.replace_residue(
-            child, residue, Pose.residue(randParent, residue), True)
+            child, residue, Pose.residue(randParent.pose, residue), True)
 
-    inParent = child
+    inParent.pose = child
 
 
 """

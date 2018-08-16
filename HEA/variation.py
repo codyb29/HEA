@@ -1,6 +1,6 @@
 import variation_modules as variation
 
-def perturb(eaObj, posePair):
+def perturb(eaObj, childData):
     if eaObj.cfg['variation']['fragReplacement'] == '1':
-        posePair[1] = variation.fragReplace(eaObj, posePair[0])
+        childData.score = variation.fragReplace(eaObj, childData.pose)
         eaObj.evalnum += 1

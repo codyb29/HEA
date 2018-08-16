@@ -6,5 +6,5 @@ this would be beneficial to keep things modular.
 """
 
 
-def localSearch(eaObj, posePair):
-    return improvement.local(eaObj, posePair)
+def localSearch(eaObj, childData):
+    return improvement.local(eaObj, childData)

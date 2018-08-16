@@ -1,4 +1,4 @@
-from core import Pose
+from pyrosetta import Pose
 
 
 def misc(eaObj):
