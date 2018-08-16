@@ -1,7 +1,6 @@
 from rosetta.protocols.grafting import delete_region
 from rosetta.core.pose import compare_atom_coordinates
 from math import inf
-from copy import deepcopy
 import setup_modules as setup
 from pyrosetta import Pose
 

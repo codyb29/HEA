@@ -1,7 +1,6 @@
 from rosetta.core.scoring import calpha_superimpose_pose, CA_rmsd
 from setup_modules.population import ProteinData
 from pyrosetta import Pose
-from copy import deepcopy
 from math import inf
 import setup
 import variation

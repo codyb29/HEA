@@ -35,7 +35,7 @@ def run(eaObj, cfg):
     # Establish variables associated with evaluating the protein
     setup.evaluation(eaObj, initConfig)
     # Object references created:
-    # eaObj.evalnum, eaObj.evalbudget, eaObj.knownNative, eaObj.other
+    # eaObj.evalnum, eaObj.evalbudget, eaObj.knownNative, eaObj.knownNativeLen
 
     # Setting up the environment for local search
     impConfig = eaObj.cfg['improvement']
@@ -43,12 +43,7 @@ def run(eaObj, cfg):
     # Object references created:
     # eaObj.relaxtype, eaObj.impScoreFxn
 
-    # misc variables
-    setup.misc(eaObj)
-    # Object references created:
-    # eaObj.oSet, eaObj.minScore, eaObj.minState
-
     # Generate population based on specified parameters
     setup.GeneratePopulation(eaObj, initConfig)
     # Object references created:
-    # eaObj.population
+    # eaObj.population, CLASS: ProteinData

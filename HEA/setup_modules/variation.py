@@ -1,8 +1,5 @@
-# from pyrosetta import *
-# from rosetta import *
 from rosetta import core, protocols
 from pyrosetta import MoveMap
-from .utils import getTrueValues
 
 """
 Setting up the Molecular Fragment Replacement.

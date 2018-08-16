@@ -4,37 +4,40 @@ from rosetta import core
 import random
 
 
-def onePointcrossover(eaObj, inParent):
-    # Get random number for crossoverpoint.
-    randParentLocation = randint(1, len(eaObj.population) - 1)
-    # Get random parent from population, ensure that we didn't get the same one.
-    randParent = eaObj.population[randParentLocation]
+def randomParent(eaObj, base):
+    while True:
+        # Get random number for crossoverpoint.
+        uniqueParentLocation = randint(1, len(eaObj.population) - 1)
+        # Get random parent from population, ensure that we didn't get the same one.
+        uniqueParent = eaObj.population[uniqueParentLocation]
+        if (uniqueParent != base):
+            break
 
-    while (randParent == inParent):
-        randParentLocation = randint(1, len(eaObj.population) - 1)
-        randParent = eaObj.population[randParentLocation]
+    return uniqueParent.pose
+
+
+def onePointcrossover(eaObj, inParent):
+    # Get random parent from population, ensure that we didn't get the same one.
+    randParent = Pose()
+    randParent.assign(randomParent(eaObj, inParent))
 
     # Pick a random point in the sequence of the strand of amino acids to crossover
-    crossOverPoint = randint(1, eaObj.seqLen)
-    
+    crossOverPoint = randint(1, inParent.pose.size())
 
     # Create a new pose to be crossover'd by the two parents
     child = Pose()
     child.assign(inParent.pose)
 
     """
-    Based on the API i've read through, I don't see any methods that could make this easy so here's a solution:
-    We iterate through the size of the crossover point (since we already have one of the parents copied).
-    we utilize "replace_residue" and "residue" to extract each individual strand of residue from a parent and copy it
-    over to the offspring. WARNING: be sure not to copy over the part that has already been copied from 6 lines above.
-    We do this one by one until the offspring has reached it's crossoverpoint and we should have a fully newborn
+    We iterate through the size of the crossover point (since we already have one of the parents copied)
+    one by one until the offspring has reached it's crossoverpoint and we should have a fully newborn
     offspring by the end of the loop.
     """
     for residue in range(1, crossOverPoint):
         Pose.replace_residue(
-            child, residue, Pose.residue(randParent.pose, residue), True)
+            child, residue, Pose.residue(randParent, residue), True)
 
-    inParent.pose = child
+    inParent.pose.assign(child)
 
 
 """
@@ -44,36 +47,26 @@ minimal documentation is necessary.
 
 
 def twoPointcrossover(eaObj, inParent):
-    # Random selection for the necessary components.
-    randParentLocation = randint(1, len(eaObj.population)-1)
-    randParent = eaObj.population[randParentLocation][0]
+    randParent = Pose()
+    randParent.assign(randomParent(eaObj, inParent))
 
-    # Maybe a do-while would do the trick to solve the equality problem?
-    crossOverPoint1 = randint(1, len(eaObj.population))
-    crossOverPoint2 = randint(1, len(eaObj.population))
+    crossOverPoint1 = randint(1, inParent.pose.size())
+    crossOverPoint2 = randint(1, inParent.pose.size())
     # the first crossover point should be smaller than the second one.
-    # TODO: This can be implemented more effectively.
     while(crossOverPoint1 >= crossOverPoint2):
-        crossOverPoint1 = randint(1, len(eaObj.population))
-        crossOverPoint2 = randint(1, len(eaObj.population))
+        crossOverPoint1 = randint(1, inParent.pose.size())
+        crossOverPoint2 = randint(1, inParent.pose.size())
 
     # The crossover'd child
     child = Pose()
-    child.assign(randParent)
+    child.assign(inParent.pose)
 
-    # We switch the values between the two crossover points with values from the second parent
+    # We switch the values between the two crossover points with values from the random parent
     for residue in range(crossOverPoint1, crossOverPoint2):
         Pose.replace_residue(
-            child, residue, Pose.residue(inParent, residue), True)
+            child, residue, Pose.residue(randParent, residue), True)
 
-    # Alternatively, we should switch the values from the parents two times consecutively
-    '''for i in range(1, crossOverPoint1):
-        Pose.replace_residue(child, i, Pose.residue(inParent,i), True)
-    
-    for i in range(1, crossOverPoint2):
-        Pose.replace_residue(child, i, Pose.residue(inParent,i), True)'''
-
-    inParent = child
+    inParent.pose.assign(child)
 
 
 """
@@ -83,18 +76,20 @@ of similarity between two parents as a crossover point. Then proceeds to replace
 
 
 def homologousonePointcrossover(eaObj, inParent):
-    # Random selectdion for necessary components
-    randParentLocation = randint(1, len(eaObj.population)-1)
-    randParent = eaObj.population[randParentLocation][0]
-
-    child = Pose()
-    child.assign(randParent)
     similarpoints = []  # Creating a list to store points with similar angles found
+    randParent = Pose()
 
     # Searching for similar angles
-    for i in range(1, len(inParent)):
-        if((child.phi(i) == randParent.phi(i)) and (child.psi(i) == randParent.psi(i)) and (child.chi(i) == randParent.chi(i))):
-            similarpoints.append(i)
+    while (len(similarpoints) == 0):
+        randParent.assign(randomParent(eaObj, inParent))
+        for i in range(1, inParent.pose.size()):
+            if((inParent.pose.phi(i) == randParent.phi(i)) and
+                (inParent.pose.psi(i) == randParent.psi(i)) and
+                    (inParent.pose.omega(i) == randParent.omega(i))):
+                similarpoints.append(i)
+
+    child = Pose()
+    child.assign(inParent.pose)
 
     # Now we select a random point from the list of points that had similar angles as our crossOverPoint
     crossOverPoint = random.choice(similarpoints)
@@ -102,6 +97,6 @@ def homologousonePointcrossover(eaObj, inParent):
     # We should switch the values from the parents
     for residue in range(1, crossOverPoint):
         Pose.replace_residue(
-            child, residue, Pose.residue(inParent, residue), True)
+            child, residue, Pose.residue(randParent, residue), True)
 
-    return child
+    inParent.pose.assign(child)

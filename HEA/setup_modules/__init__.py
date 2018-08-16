@@ -6,4 +6,3 @@ from .variation import variation
 from .improvement import improvement
 from .converters import converter
 from .crossover import crossover
-from .misc import misc
