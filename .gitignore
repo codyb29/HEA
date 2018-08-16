@@ -19,6 +19,8 @@ proteins/*/*.200_v1_3
 
 # Ignore protein files and what not
 HEA/initialization_files/*.ini
+# Make an exception for the template
+!HEA/initialization_files/iniFileTemplate.ini
 results/*.txt
 
 
